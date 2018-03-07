@@ -12,10 +12,16 @@ def index(request):
     num_instances_available=BookInstance.objects.filter(status__exact='a').count()
     num_authors=Author.objects.count()
 
+    """Managing user sessions"""
+    num_authors=Author.objects.count()
+    num_visits=request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits+1
+    
+
     return render(
         request,
         'catalog/index.html',
-        context={'num_books':num_books,'num_instances':num_instances,'num_instances_available':num_instances_available,'num_authors':num_authors},
+        context={'num_books':num_books,'num_instances':num_instances,'num_instances_available':num_instances_available,'num_authors':num_authors ,'num_authors':num_authors,},
     )
 
 class AuthorListView(generic.ListView):
@@ -51,5 +57,5 @@ def author_detail_view(request , pk):
      return render(
          request,
          'catalog/author_detail.html',
-         context ={'author': author_id, 'books_by_author':books_by_author}
+         context ={'author': author_id, 'books_by_author':books_by_author,'num_visits':num_visits}
      )

@@ -4,9 +4,9 @@
     <h1>Author list</h1>
     {%if author_list %}
     <ul>
-        {%for book in book_by_author %}
+        {%for author in author_list %}
             <li>
-                <a href ="{{book.get_absolute_url}}">{{author}}</a>
+                <a href ="{{author.get_absolute_url}}">{{author}} ({{author.date_of_birth}} - {{author.date_of_death}})</a>
             </li>
         {% endfor %}
     </ul>
@@ -14,4 +14,3 @@
         <p>No author has been registered yet</p>
     {% endif %}
 {% endblock%}
-

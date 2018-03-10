@@ -1,0 +1,19 @@
+{% extends "catalog/base_generic.html" %}
+
+{% block content %}
+    <h2><strong>Author: </strong>{{author}}</h2>
+    
+
+    <div  style ="margin-left: 20px; margin-top:20px;">
+        {% if author.date_of_birth %}
+            <p>Date of birth: {{author.date_of_birth}} </p>
+        {% endif %}
+        {% if author.date_of_death %}
+            <p>Date of death: {{author.date_of_death}} </p>
+        {% endif %}
+        <h3>Books written by {{author}}</h3>
+        {% for copy in books_by_author %}
+            {{copy}}
+        {% endfor %}
+    </div>
+{% endblock %}

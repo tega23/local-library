@@ -30,7 +30,7 @@ class AuthorListView(generic.ListView):
     paginate_by = 5
     context_name ='author_list'
     tempelate_name = 'author_list.html'
-
+    
     def get_context_data(self, **kwargs):
         context = super(AuthorListView, self).get_context_data(**kwargs)
         return context

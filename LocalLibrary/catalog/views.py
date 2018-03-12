@@ -44,13 +44,13 @@ class BookListView(generic.ListView):
         context = super(BookListView , self).get_context_data(**kwargs)
         return context
 
-class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
+class LoanedBooksByUserListView(generic.ListView):
     """
     Generic class-based view listing books on loan to current user. 
     """
     model = BookInstance
     context_object_name = 'bookinstance_list'
-    template_name = 'user_borrowed_books.html'
+    template_name = 'catalog/user_borrowed_books.html'
     paginate_by = 5
     
     def get_queryset(self):

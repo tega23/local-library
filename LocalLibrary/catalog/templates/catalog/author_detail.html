@@ -11,9 +11,10 @@
         {% if author.date_of_death %}
             <p>Date of death: {{author.date_of_death}} </p>
         {% endif %}
-        <h3>Books written by {{author}}</h3>
+        <h2>Books</h2>
         {% for copy in books_by_author %}
-            {{copy}}
+            <p><strong><a href ="{%url 'book-detail' copy.id%}">{{copy}}</strong></a></p>
+            <p>{{copy.summary}}</p>
         {% endfor %}
     </div>
 {% endblock %}

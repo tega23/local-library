@@ -3,6 +3,8 @@ import uuid
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your models here.
 
 class Genre(models.Model):
@@ -75,4 +77,5 @@ class Language(models.Model):
 
     def __str__(self):
         return self.name
+
 

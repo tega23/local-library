@@ -2,10 +2,10 @@
 
 {% block content %}
     <h1>Title: {{book.title}}</h1>
-    <p><strong>Author: </strong><a href = ""> {{book.author}}</a></p>
-    <p><strong>Summary: </strong><a href = ""> {{book.summary}}</a></p>
-    <p><strong>ISBN: </strong><a href = ""> {{book.isbn}}</a></p>
-    <p><strong>Language: </strong><a href = "{% url 'author-detail' book.author.pk %}"> {{book.language}}</a></p>
+    <p><strong>Author: </strong><a href = "{%url 'author-detail' book.author.id %}"> {{book.author}}</a></p>
+    <p><strong>Summary: </strong> {{book.summary}}</p>
+    <p><strong>ISBN: </strong>{{book.isbn}}</p>
+    <p><strong>Language: </strong>{{book.language}}</p>
     <p><strong>Genre: </strong>{% for genre in book.genre.all %} {{genre}}{% if not forloop.last %}, {%endif %} {% endfor %}</p>
 
     <div  style ="margin-left: 20px; margin-top:20px;" >

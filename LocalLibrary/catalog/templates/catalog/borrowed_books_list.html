@@ -4,7 +4,8 @@
     <ul>
         {% for borrowed_inst  in  borrowed_books%}
             <li class ="{% if borrowed_inst.is_overdue %} text-danger {% endif %}"><a>{{borrowed_inst.book.title}} {{borrowed_inst.id}} </a>
-                ({{borrowed_inst.due_back}}) - {{borrowed_inst.borrower}}</li>
+                ({{borrowed_inst.due_back}}) - {{borrowed_inst.borrower}} {% if perms.catalog.can_mark_returned %} -  <a href="{% url 'renew-book-librarian' borrowed_inst.id %}">Renew</a>{% endif %}</li>
         {% endfor %}
     </ul>       
 {% endblock %}
+

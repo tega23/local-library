@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from datetime import date
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import permission_required
+from django.forms import ModelForm
 
 # Create your models here.
 
@@ -80,4 +81,27 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
+"""An example of using ModelForm to create forms 
 
+class RenewBookModelForm(ModelForm):
+    class Meta:
+        model = BookInstance
+        fields = ['due_back',]
+        labels = { 'due_back': 'Renewal date',}
+        help_texts = { 'due_back': 'Enter a date between now and 4 weeks (default 3).', } 
+
+    def clean_due_back(self):
+       data = self.cleaned_data['due_back']
+       
+       #Check date is not in past.
+       if data < datetime.date.today():
+           raise ValidationError('Invalid date - renewal in past')
+
+       #Check date is in range librarian allowed to change (+4 weeks)
+       if data > datetime.date.today() + datetime.timedelta(weeks=4):
+           raise ValidationError('Invalid date - renewal more than 4 weeks ahead')
+
+       # Remember to always return the cleaned data.
+       return data
+
+ """    

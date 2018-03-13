@@ -3,6 +3,11 @@ from .models import Book, Author, BookInstance, Genre
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin , PermissionRequiredMixin
+from .forms import RenewBookForm
+from django.contrib.auth.decorators import permission_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import reverse
+import datetime
 # Create your views here.
 
 
@@ -83,3 +88,20 @@ def author_detail_view(request , pk):
          'catalog/author_detail.html',
          context ={'author': author_id, 'books_by_author':books_by_author,}
      )
+
+
+@permission_required('catalog.can_mark_returned')
+def renew_book_librarian(request , pk):
+    book_inst=get_object_or_404(BookInstance, pk = pk)
+
+    if request.method == 'POST':
+        form = RenewBookForm(request.POST)
+        if form.is_valid():
+            book_inst.due_back = form.cleaned_data['renewal_date']
+            book_inst.save()
+            return HttpResponseRedirect(reverse('borrowed-books') )
+    else:
+        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+        form = RenewBookForm(initial={'renewal_date': proposed_renewal_date,})
+
+    return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst':book_inst})

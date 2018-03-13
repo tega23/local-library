@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import permission_required
 
 # Create your models here.
 
@@ -49,6 +50,7 @@ class BookInstance(models.Model):
 
     class Meta:
         ordering = ["due_back"]
+        permissions = (("can_mark_returned", "Set book as returned"),)
     def __str__(self):
         return '{0} ({1})'.format(self.id,self.book.title)
 
